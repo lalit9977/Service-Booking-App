@@ -1,0 +1,11 @@
+# Eclipse-related files and folders
+.classpath
+.project
+.settings/
+.metadata/
+.history/
+bin/
+
+# Maven build folder and other temporary files
+target/
+*.log
