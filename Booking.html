@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskKArtForm
+    </title>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        integrity="sha512-...">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+
+
+
+    <style>
+        body {
+            background-color: rgb(3, 4, 59);
+            height: 100vh;
+            margin: 0;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+        }
+
+        #divv {
+            background: linear-gradient(to right, rgb(172, 22, 159), rgb(75, 22, 172));
+            height: 30em;
+            width: 25em;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 20px rgb(133, 3, 240);
+            font-family: Arial, Helvetica, sans-serif;
+            word-wrap: break-word;
+            white-space: normal;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        #inner {
+            padding: 10px;
+            ;
+        }
+
+        .myinput {
+            color: rgb(0, 0, 8);
+            border-radius: 2px;
+            margin: 8px;
+            align-content: center;
+            align-items: center;
+            justify-content: center;
+            width: 28vw;
+        }
+
+        .myinput::placeholder {
+            color: darkslategray;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        #btn {
+            justify-content: center;
+            display: flex;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="divv">
+        <h2>Book your service here<i class="fa-solid fa-screwdriver-wrench"></i>
+        </h2>
+        <form action="">
+            <div>
+                <input id="name" class="myinput" type="text" name="name" required placeholder="enter name" autofocus>
+                <br><input id="number" class="myinput" type="tel" name="mobile" required placeholder="enter your number">
+                <br><input id="svc" class="myinput"  type="text" name="service" required placeholder="service name">
+                <br> <textarea id="address" class="myinput" name="address" required placeholder="Enter Address here" rows="2" cols="50"></textarea>
+            </div>
+
+
+
+        </form>
+        <div id="btn">
+            <button id="payBtn" type="button"
+                style="background-color: rgb(17, 112, 221); color: white; height: 40px;  border-radius: 20px; cursor: pointer; font: inherit">Book
+                now</button>
+        </div>
+    </div>
+
+
+
+    <script>
+
+
+        const peraa = new URLSearchParams(window.location.search);
+        const service = peraa.get("service");
+        if (service) {
+            document.getElementById("svc").value = service;
+        }
+        document.getElementById("payBtn").addEventListener("click", function () {
+
+
+
+
+
+            const name = document.getElementById("name").value.trim();
+            const number = document.getElementById("number").value.trim();
+            const service = document.getElementById("svc").value.trim();
+            const address = document.getElementById("address").value.trim();
+
+            if (!name || !number || !service || !address) {
+                window.alert("Please fill all fields booking before");
+                return;
+
+            }
+            else {
+                const bookingData = {
+                    name: document.getElementById("name").value,
+                    number: document.getElementById("number").value,
+                    servicename: document.getElementById("svc").value,
+                    address: document.getElementById("address").value
+
+                };
+
+
+                fetch("http://localhost:9090/api/bookings", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(bookingData)
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        window.open('https://payments-test.cashfree.com/links?code=t95h4ian2df0', '_blank');                        alert("data save sucessfully");
+
+
+                    })
+                    .catch(error => {
+                        alert("Error please try again after some time: " + error);
+                    });
+            }
+
+
+
+        })
+
+    </script>
+</body>
+
+</html>
